@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_engineering_1aojr/customs/buildAppBar.dart';
 
-import 'add_car2.dart';
+import 'add_car.dart';
 import 'model/car.dart';
 
 class ListCars extends StatefulWidget {
@@ -15,6 +16,7 @@ class _ListCarsState extends State<ListCars> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // appBar: const BuildAppBar(title: 'Carros'),
       appBar: AppBar(
         title: const Text("Carros"),
         actions: [
@@ -24,7 +26,7 @@ class _ListCarsState extends State<ListCars> {
               Future future = Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AddCar(),
+                    builder: (context) => const AddCar(),
                   ));
               future.then((car) {
                 if (car != null) insertCar(car);

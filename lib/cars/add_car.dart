@@ -1,28 +1,45 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:mobile_engineering_1aojr/cars/brands.dart';
-import 'package:mobile_engineering_1aojr/cars/model/brand.dart';
-import 'package:mobile_engineering_1aojr/fields/buildTextField.dart';
+import 'package:mobile_engineering_1aojr/customs/buildAppBar.dart';
 
+import '../customs/buildTextField.dart';
 import 'model/car.dart';
 
-class AddCar extends StatelessWidget {
-  AddCar({Key? key}) : super(key: key);
+class AddCar extends StatefulWidget {
+  const AddCar({Key? key}) : super(key: key);
 
+  @override
+  State<AddCar> createState() => _AddCarState();
+}
+
+class _AddCarState extends State<AddCar> {
   final _formKey = GlobalKey<FormState>();
+  final _modelKey = GlobalKey<FormFieldState>();
 
   final brands = ['Hyundai', 'Kia'];
-  final models = {
-    'Hyundai': [
-      'Tucson',
-      'Creta',
-    ],
-    'Kia': [
-      'Sportage',
-      'Sorento',
-    ]
-  };
+  final brandsModels = [
+    {
+      'brand': 'Hyundai',
+      'models': [
+        'Tucson',
+        'Creta',
+      ]
+    },
+    {
+      'brand': 'Kia',
+      'models': [
+        'Sportage',
+        'Sorento',
+      ]
+    }
+  ];
+  final modelsHyundai = [
+    'Tucson',
+    'Creta',
+  ];
+  final modelsKia = [
+    'Sportage',
+    'Sorento',
+  ];
 
   List<String> listModels = [];
 
@@ -48,98 +65,104 @@ class AddCar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Novo Carro"),
-      ),
+      appBar: const BuildAppBar(title: 'Novo Carro'),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Form(
           key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              BuildTextField(
-                  label: 'Apelido',
-                  controller: _aliasController,
-                  textValidator: 'Insira um apelido para o carro'),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                child: DropdownButtonFormField<String>(
-                  isExpanded: true,
-                  icon: const Icon(Icons.drive_eta),
-                  hint: const Text('Escolha a marca'),
-                  decoration: InputDecoration(
-                      label: const Text('Marca'),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6))),
-                  onChanged: (option) {
-                    _brandController.text = option.toString();
-                  },
-                  items: brands
-                      .map((op) => DropdownMenuItem(value: op, child: Text(op)))
-                      .toList(),
-                ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                child: DropdownButtonFormField<String>(
-                  isExpanded: true,
-                  icon: const Icon(Icons.drive_eta),
-                  hint: const Text('Escolha o modelo'),
-                  decoration: InputDecoration(
-                      label: const Text('Modelo'),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6))),
-                  onChanged: (option) =>
-                      _modelController.text = option.toString(),
-                  items: listModels
-                      .map((op) => DropdownMenuItem(value: op, child: Text(op)))
-                      .toList(),
-                ),
-              ),
-              BuildTextField(
-                  label: 'Ano de fabricação',
-                  controller: _makeYearController,
-                  textValidator: 'Insira o ano de fabricação do carro'),
-              BuildTextField(
-                  label: 'Ano do modelo',
-                  controller: _modelYearController,
-                  textValidator: 'Insira o ano do modelo do carro'),
-              BuildTextField(
-                  label: 'Cor do carro',
-                  controller: _colorController,
-                  textValidator: 'Escolha a cor do carro'),
-              BuildTextField(
-                  label: 'Quilometragem',
-                  controller: _mileageController,
-                  textValidator: 'Informe a quilometragem'),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: ElevatedButton(
-                    onPressed: () {
-                      //null safety
-                      if (_formKey.currentState!.validate()) {
-                        Car car = Car(
-                            _aliasController.text,
-                            _brandController.text,
-                            _modelController.text,
-                            _makeYearController.text,
-                            _modelYearController.text,
-                            _colorController.text,
-                            _mileageController.text);
-                        Navigator.pop(context, car);
-                      }
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                BuildTextField(
+                    label: 'Apelido',
+                    controller: _aliasController,
+                    textValidator: 'Insira um apelido para o carro'),
+                Padding(
+                  padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  child: DropdownButtonFormField<String>(
+                    isExpanded: true,
+                    icon: const Icon(Icons.drive_eta),
+                    hint: const Text('Escolha a marca'),
+                    decoration: InputDecoration(
+                        label: const Text('Marca'),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(6))),
+                    onChanged: (option) {
+                      _brandController.text = option.toString();
+                      _modelKey.currentState?.reset();
+                      setState(() {
+                        listModels = [];
+                        if (option.toString() == 'Hyundai')
+                          listModels = modelsHyundai;
+                        if (option.toString() == 'Kia') listModels = modelsKia;
+                      });
                     },
-                    child: const Text('Gravar')),
-              ),
-            ],
+                    items: brands
+                        .map((op) => DropdownMenuItem(value: op, child: Text(op)))
+                        .toList(),
+                  ),
+                ),
+                Padding(
+                  padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  child: DropdownButtonFormField<String>(
+                    key: _modelKey,
+                    isExpanded: true,
+                    icon: const Icon(Icons.drive_eta),
+                    hint: const Text('Escolha o modelo'),
+                    decoration: InputDecoration(
+                        label: const Text('Modelo'),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(6))),
+                    onChanged: (option) =>
+                    _modelController.text = option.toString(),
+                    items: listModels
+                        .map((op) => DropdownMenuItem(value: op, child: Text(op)))
+                        .toList(),
+                  ),
+                ),
+                BuildTextField(
+                    label: 'Ano de fabricação',
+                    controller: _makeYearController,
+                    textValidator: 'Insira o ano de fabricação do carro'),
+                BuildTextField(
+                    label: 'Ano do modelo',
+                    controller: _modelYearController,
+                    textValidator: 'Insira o ano do modelo do carro'),
+                BuildTextField(
+                    label: 'Cor do carro',
+                    controller: _colorController,
+                    textValidator: 'Escolha a cor do carro'),
+                BuildTextField(
+                    label: 'Quilometragem',
+                    controller: _mileageController,
+                    textValidator: 'Informe a quilometragem'),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: ElevatedButton(
+                      onPressed: () {
+                        //null safety
+                        if (_formKey.currentState!.validate()) {
+                          Car car = Car(
+                              _aliasController.text,
+                              _brandController.text,
+                              _modelController.text,
+                              _makeYearController.text,
+                              _modelYearController.text,
+                              _colorController.text,
+                              _mileageController.text);
+                          Navigator.pop(context, car);
+                        }
+                      },
+                      child: const Text('Gravar')),
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 }
-
-class _buildList {}

@@ -1,6 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_engineering_1aojr/cars/add_car.dart';
+import 'package:mobile_engineering_1aojr/cars/update_mileage.dart';
 import 'package:mobile_engineering_1aojr/home/home.dart';
+import 'package:mobile_engineering_1aojr/login.dart';
 
 import 'cars/list_car.dart';
 
@@ -19,10 +22,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Home',
       theme: ThemeData(primarySwatch: Colors.blue),
-      initialRoute: '/listCars',
+      initialRoute: '/',
       routes: {
         '/': (context) => const Home(),
-        '/listCars': (context) => const ListCars()
+        '/login': (context) => const Login(),
+        '/listCars': (context) => const ListCars(),
+        '/addCar': (context) => const AddCar(),
+        '/updateMileage': (context) => const UpdateMileage()
       },
     );
   }

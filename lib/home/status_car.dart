@@ -11,14 +11,13 @@ class _StatusCarState extends State<StatusCar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(5.0),
+      margin: const EdgeInsets.all(1.0),
       padding: const EdgeInsets.all(1.0),
       alignment: Alignment.topCenter,
-      width: 600,
-      height: 150,
-      decoration: const BoxDecoration(
-        color: Colors.blue,
-      ),
+      width: MediaQuery.of(context).size.width * 0.8,
+      height: MediaQuery.of(context).size.height * 0.1,
+      decoration: BoxDecoration(
+          color: Colors.blue, borderRadius: BorderRadius.circular(6)),
     );
   }
 }
