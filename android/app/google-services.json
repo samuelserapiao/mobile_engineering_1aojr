@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "291431918363",
+    "project_id": "mobileengineering1aojr-8f19c",
+    "storage_bucket": "mobileengineering1aojr-8f19c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:291431918363:android:534f4100bd091c6fc081be",
+        "android_client_info": {
+          "package_name": "br.com.fiap.mobile_engineering_1aojr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "291431918363-5v193k5an3761uogtker0ng7vib0qmln.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5I84aFFUMMSOhLA-CATaBevwlwJ8jVgg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "291431918363-5v193k5an3761uogtker0ng7vib0qmln.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
