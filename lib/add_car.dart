@@ -1,8 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_engineering_1aojr/customs/buildAppBar.dart';
 
-import '../customs/buildTextField.dart';
-import 'model/car.dart';
+import 'customs/buildTextField.dart';
+import 'cars/model/car.dart';
 
 class AddCar extends StatefulWidget {
   const AddCar({Key? key}) : super(key: key);
@@ -61,6 +62,7 @@ class _AddCarState extends State<AddCar> {
   final TextEditingController _modelYearController = TextEditingController();
   final TextEditingController _colorController = TextEditingController();
   final TextEditingController _mileageController = TextEditingController();
+  final Timestamp _updateAt = Timestamp.now();
 
   @override
   Widget build(BuildContext context) {
@@ -152,7 +154,9 @@ class _AddCarState extends State<AddCar> {
                               _makeYearController.text,
                               _modelYearController.text,
                               _colorController.text,
-                              _mileageController.text);
+                              _mileageController.text,
+                              _updateAt
+                          );
                           Navigator.pop(context, car);
                         }
                       },

@@ -1,11 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_engineering_1aojr/cars/add_car.dart';
-import 'package:mobile_engineering_1aojr/cars/update_mileage.dart';
-import 'package:mobile_engineering_1aojr/home/home.dart';
+import 'package:mobile_engineering_1aojr/add_car.dart';
+import 'package:mobile_engineering_1aojr/home.dart';
 import 'package:mobile_engineering_1aojr/login.dart';
 
-import 'cars/list_car.dart';
+import 'list_car.dart';
+import 'update_mileage.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,10 +23,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Home',
       theme: ThemeData(primarySwatch: Colors.blue),
+      debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => const Home(),
-        '/login': (context) => const Login(),
+        '/': (context) => const Login(),
+        '/home': (context) => const Home(),
         '/listCars': (context) => const ListCars(),
         '/addCar': (context) => const AddCar(),
         '/updateMileage': (context) => const UpdateMileage()

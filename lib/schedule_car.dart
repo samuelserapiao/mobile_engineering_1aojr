@@ -14,10 +14,10 @@ class _ScheduleCarState extends State<ScheduleCar> {
       margin: const EdgeInsets.all(1.0),
       padding: const EdgeInsets.all(1.0),
       alignment: Alignment.topCenter,
-      width: MediaQuery.of(context).size.width * 0.8,
+      width: MediaQuery.of(context).size.width * 0.9,
       height: MediaQuery.of(context).size.height * 0.5,
       decoration: BoxDecoration(
-          color: Colors.amber, borderRadius: BorderRadius.circular(6)),
+          color: Colors.grey, borderRadius: BorderRadius.circular(6)),
     );
   }
 }

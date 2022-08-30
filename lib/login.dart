@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_engineering_1aojr/util/constants.dart';
 
+import 'home.dart';
+
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
@@ -42,7 +44,12 @@ class _LoginState extends State<Login> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Home()));
+                      },
                       child: const Text(
                         "Entrar",
                         style: TextStyle(color: Colors.white, fontSize: 30),

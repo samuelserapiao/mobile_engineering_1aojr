@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:mobile_engineering_1aojr/customs/buildAppBar.dart';
+import 'package:mobile_engineering_1aojr/home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'cars/model/car.dart';
 import 'add_car.dart';
-import 'model/car.dart';
 
 class ListCars extends StatefulWidget {
   const ListCars({Key? key}) : super(key: key);
@@ -45,7 +46,10 @@ class _ListCarsState extends State<ListCars> {
 
   Widget _buildBody(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection('car').snapshots(),
+      stream: FirebaseFirestore.instance
+          .collection('car')
+          .orderBy('updateAt', descending: true)
+          .snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return const LinearProgressIndicator();
         if (snapshot.data == null) {
@@ -78,6 +82,12 @@ class _ListCarsState extends State<ListCars> {
         child: ListTile(
           title: Text(record.model),
           trailing: Text(record.brand),
+          onTap: () {
+            _selectedCar(data.reference.id);
+            data.reference.update({'updateAt': Timestamp.now()});
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => const Home()));
+          },
           onLongPress: () {
             // data.reference.delete();
           },
@@ -85,4 +95,10 @@ class _ListCarsState extends State<ListCars> {
       ),
     );
   }
+}
+
+void _selectedCar(carKey) async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.remove('carKey');
+  await prefs.setString('carKey', carKey);
 }

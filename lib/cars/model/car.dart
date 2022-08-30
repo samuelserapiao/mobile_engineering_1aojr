@@ -8,11 +8,12 @@ class Car {
   final String modelYear;
   final String color;
   final String mileage;
+  final Timestamp updateAt;
 
   DocumentReference? reference;
 
   Car(this.alias, this.brand, this.model, this.makeYear, this.modelYear,
-      this.color, this.mileage);
+      this.color, this.mileage, this.updateAt);
 
   Car.fromMap(Map<String, dynamic> map, {this.reference})
       : alias = map['alias'],
@@ -21,7 +22,8 @@ class Car {
         makeYear = map['makeYear'],
         modelYear = map['modelYear'],
         color = map['color'],
-        mileage = map['mileage'];
+        mileage = map['mileage'],
+        updateAt = map['updateAt'];
 
   Car.fromSnapshot(QueryDocumentSnapshot snapshot)
       : this.fromMap(snapshot.data() as Map<String, dynamic>,
@@ -35,5 +37,6 @@ class Car {
         'modelYear': modelYear,
         'color': color,
         'mileage': mileage,
+        'updateAt': updateAt,
       };
 }
